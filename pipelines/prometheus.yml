@@ -26,5 +26,7 @@ pipelines:
                       - -e
                       - ansible_password=DevOps321
                       - tools.yml
+                      - -e
+                      - role_name=prometheus
                     command: ansible-playbook
                     run_if: passed
