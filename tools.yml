@@ -1,0 +1,5 @@
+- name: Install prometheus
+  hosts: all
+  become: true
+  roles:
+    - "{{ role_name }}"
