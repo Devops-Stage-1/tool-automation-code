@@ -19,7 +19,7 @@ pipelines:
               tasks:
                 - exec:
                     arguments:
-                      - i
+                      - -i
                       - prometheus.dkdevops.online,
                       - -e
                       - ansible_user=ec2-user
