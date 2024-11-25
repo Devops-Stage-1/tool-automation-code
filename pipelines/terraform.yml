@@ -20,7 +20,11 @@ pipelines:
                 - exec:
                     arguments:
                       - init
-                      - apply -auto-approve
                     command: terraform
                     run_if: passed
-
+                - exec:
+                    arguments:
+                      - apply
+                      - -auto-aprove
+                    command: terraform
+                    run_if: passed
