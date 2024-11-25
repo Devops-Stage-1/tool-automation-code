@@ -25,6 +25,6 @@ pipelines:
                 - exec:
                     arguments:
                       - apply
-                      - -auto-aprove
+                      - -auto-approve
                     command: terraform
                     run_if: passed
