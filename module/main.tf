@@ -5,7 +5,7 @@ resource "aws_instance" "instance" {
 
 
   tags = {
-    name = var.tool_name
+    Name = var.tool_name
   }
 }
 
