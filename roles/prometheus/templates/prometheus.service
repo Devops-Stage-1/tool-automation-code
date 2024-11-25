@@ -1,0 +1,10 @@
+[Unit]
+Description = prometheus Service
+
+[Service]
+User=bin
+ExecStart=/opt/prometheus2.53.3.linux-amd64
+SyslogIdentifier=prometheus
+
+[Install]
+WantedBy=multi-user.target

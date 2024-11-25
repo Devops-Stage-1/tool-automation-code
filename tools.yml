@@ -1,4 +1,4 @@
-- name: Install prometheus
+- name: Install tools
   hosts: all
   become: true
   roles:
