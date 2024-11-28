@@ -10,7 +10,7 @@ resource "aws_instance" "instance" {
 }
 
 resource "aws_iam_role" "role" {
-  name = "${var.tool_name}role"
+  name = "${var.tool_name}-role"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
@@ -46,7 +46,7 @@ resource "aws_iam_role" "role" {
 }
 
 resource "aws_iam_instance_profile" "instance_profile" {
-  name = "${var.tool_name}profile"
+  name = "${var.tool_name}-profile"
   role = aws_iam_role.role.name
 }
 
