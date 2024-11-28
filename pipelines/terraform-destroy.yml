@@ -1,7 +1,7 @@
 format_version: 10
 pipelines:
   tools-tf-apply:
-    group: defaultGroup
+    group: Tools
     display_order: -1
     materials:
       git-4210a58:
@@ -24,7 +24,7 @@ pipelines:
                     run_if: passed
                 - exec:
                     arguments:
-                      - apply
+                      - destroy
                       - -auto-approve
                     command: terraform
                     run_if: passed

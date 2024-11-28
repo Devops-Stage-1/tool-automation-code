@@ -1,6 +1,6 @@
 format_version: 10
 pipelines:
-  prometheus:
+  tools-tf-apply:
     group: Tools
     display_order: -1
     materials:
@@ -10,23 +10,21 @@ pipelines:
         auto_update: true
         branch: main
     stages:
-      - ansible:
+      - APPLY:
           fetch_materials: true
           approval:
             type: manual
           jobs:
-            ansible:
+            terraform:
               tasks:
                 - exec:
                     arguments:
-                      - -i
-                      - prometheus-internal.dkdevops.online,
-                      - -e
-                      - ansible_user=ec2-user
-                      - -e
-                      - ansible_password=DevOps321
-                      - tools.yml
-                      - -e
-                      - role_name=prometheus
-                    command: ansible-playbook
+                      - init
+                    command: terraform
+                    run_if: passed
+                - exec:
+                    arguments:
+                      - apply
+                      - -auto-approve
+                    command: terraform
                     run_if: passed
