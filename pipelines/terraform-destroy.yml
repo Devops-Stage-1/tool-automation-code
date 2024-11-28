@@ -1,6 +1,6 @@
 format_version: 10
 pipelines:
-  tools-tf-apply:
+  tools-tf-destroy:
     group: Tools
     display_order: -1
     materials:
