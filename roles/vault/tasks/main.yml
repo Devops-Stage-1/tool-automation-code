@@ -14,7 +14,7 @@
     state: installed
 
 - name: Start vault
-  ansible.builtin.sytemd_service:
+  ansible.builtin.systemd_service:
     name: vault
     state: restarted
     enabled: true
