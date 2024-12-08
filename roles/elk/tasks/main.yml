@@ -1,0 +1,39 @@
+- name: Copy elastic search repo file
+  ansible.builtin.template:
+    src: elasticsearch.repo
+    dest: /etc/yum.repos.d/elasticsearch.repo
+
+- name: Install elasticsearch
+  ansible.builtin.dnf:
+    name: elasticsearch
+    state: installed
+
+- name: Start Grafana
+  ansible.builtin.systemd_service:
+    name: elasticsearch
+    state: restarted
+    enabled: yes
+
+- name: Install Kibana
+  ansible.builtin.dnf:
+    name: kibana
+    state: installed
+
+- name: Replace server port number
+  ansible.builtin.lineinfile:
+    path: /etc/kibana/kibana.yml
+    regexp: '^#server.port: 5601'
+    line: "server.port: 5601"
+
+- name: Update Kibana Config IP line
+  ansible.builtin.lineinfile:
+    path: /etc/kibana/kibana.yml
+    regexp: '^#server.host: localhost'
+    line: "server.host: 0.0.0.0"
+
+- name: Start Grafana
+  ansible.builtin.systemd_service:
+    name: kibana
+    state: restarted
+    enabled: yes
+
