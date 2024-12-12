@@ -1,3 +1,6 @@
+- name: Set prompt
+  ansible.builtin.shell: set-prompt prometheus
+
 - name: download and extract prometheus
   ansible.builtin.unarchive:
     src: https://github.com/prometheus/prometheus/releases/download/v{{ version }}/prometheus-{{ version }}.linux-amd64.tar.gz
