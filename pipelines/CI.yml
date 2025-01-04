@@ -1,6 +1,6 @@
 format_version: 10
 pipelines:
-  elk:
+  CI:
     group: Tools
     display_order: -1
     materials:
