@@ -23,3 +23,15 @@
     dest: /opt/sonarqube
     remote_src: yes
   become_user: sonar
+
+- name: Copy service file
+  ansible.builtin.template:
+    src: sonarqube.service
+    dest: /etc/systemd/system/sonarqube.service
+
+- name: Start the service
+  ansible.builtin.systemd_service:
+    name: sonarqube
+    state: restarted
+    enabled: true
+    daemon-reload: true
