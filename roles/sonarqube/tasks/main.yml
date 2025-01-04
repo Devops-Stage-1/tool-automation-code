@@ -20,6 +20,6 @@
 - name: Download and unarchive SonarQube
   ansible.builtin.unarchive:
     src: https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-24.12.0.100206.zip
-    dest: /opt
+    dest: /opt/sonarqube
     remote_src: yes
   become_user: sonar
