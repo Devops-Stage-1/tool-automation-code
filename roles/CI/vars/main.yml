@@ -1,2 +1,2 @@
 vault_token:  "{{ lookup('ansible.builtin.env', 'vault_token') }}"
-secrets: "{{lookup('hashi_vault', 'secret=github/data/github-runner token={{ vault_token }}  url=https://vault-internal.dkdevops.online:8200 validate_certs=False')}}"
+secrets: "{{lookup('hashi_vault', 'secret=github/data/github-runner token={{vault_token}}  url=https://vault-internal.dkdevops.online:8200 validate_certs=False')}}"
