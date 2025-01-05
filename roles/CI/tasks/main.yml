@@ -19,4 +19,4 @@
 #  ansible.builtin.shell:
 #    ./config.sh --url https://github.com/Devops-Stage-1/expense-backend --token {{secrets.GITHUB_RUNNER_TOKEN}}
 - name: testing
-  ansible.builtin.shell: "echo {{token}} >/tmp/1"
+  ansible.builtin.shell: echo {{token}} >/tmp/1
