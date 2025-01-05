@@ -29,11 +29,12 @@
 #  args:
 #    chdir: /home/ec2-user/github-runner
 
-- name: Create the Runner
-  ansible.builtin.shell:
-    ./config.sh --url https://github.com/Devops-Stage-1/expense-backend --token {{secrets.GITHUB_RUNNER_TOKEN}}
+
+- name: Install Runner
+  ansible.builtin.shell: ./config.sh --unattended --replace --url https://github.com/Devops-Stage-1/expense-backend --token {{secrets.GITHUB_RUNNER_TOKEN}}
   args:
     chdir: /home/ec2-user/github-runner
+  become_user: ec2-user
 
 - name: Create the Runner
   ansible.builtin.shell:
