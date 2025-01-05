@@ -15,6 +15,12 @@
     remote_src: yes
   become_user: ec2-user
 
+- name: Install hvac
+  ansible.builtin.dnf:
+    name: hvac
+    state: installed
+    executable: pip3.11
+
 #- name: Create the Runner
 #  ansible.builtin.shell:
 #    ./config.sh --url https://github.com/Devops-Stage-1/expense-backend --token {{secrets.GITHUB_RUNNER_TOKEN}}
