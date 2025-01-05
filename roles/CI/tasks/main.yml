@@ -30,17 +30,17 @@
 #    chdir: /home/ec2-user/github-runner
 
 
-- name: Install Runner
-  ansible.builtin.shell: ./config.sh --unattended --url https://github.com/Devops-Stage-1/expense-backend --token {{secrets.GITHUB_RUNNER_TOKEN}}
-  args:
-    chdir: /home/ec2-user/github-runner
-  become_user: ec2-user
-
-- name: Create the Runner
-  ansible.builtin.shell:
-    ./svc.sh install ; ./svc.sh start
-  args:
-    chdir: /home/ec2-user/github-runner
+#- name: Install Runner
+#  ansible.builtin.shell: ./config.sh --unattended --url https://github.com/Devops-Stage-1/expense-backend --token {{secrets.GITHUB_RUNNER_TOKEN}}
+#  args:
+#    chdir: /home/ec2-user/github-runner
+#  become_user: ec2-user
+#
+#- name: Create the Runner
+#  ansible.builtin.shell:
+#    ./svc.sh install ; ./svc.sh start
+#  args:
+#    chdir: /home/ec2-user/github-runner
 
 #- name: Disable default NodeJS Version Module
 #  ansible.builtin.shell: dnf module disable nodejs -y
