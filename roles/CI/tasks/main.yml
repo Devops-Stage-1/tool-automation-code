@@ -16,7 +16,7 @@
   become_user: ec2-user
 
 - name: Install hvac
-  ansible.builtin.dnf:
+  ansible.builtin.pip:
     name: hvac
     state: installed
     executable: pip3.11
