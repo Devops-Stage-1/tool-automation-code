@@ -18,16 +18,16 @@
   ansible.builtin.shell:
     /home/ec2-user/github-runner/bin/installdependencies.sh
 
-- name: Clean any Runner
-  ansible.builtin.shell: ./svc.sh uninstall
-  args:
-    chdir: /home/ec2-user/github-runner
+#- name: Clean any Runner
+#  ansible.builtin.shell: ./svc.sh uninstall
+#  args:
+#    chdir: /home/ec2-user/github-runner
 
-- name: Clean any Runner
-  ansible.builtin.shell:
-    ./config.sh remove --url https://github.com/Devops-Stage-1/expense-backend --token {{secrets.GITHUB_RUNNER_TOKEN}} --unattended
-  args:
-    chdir: /home/ec2-user/github-runner
+#- name: Clean any Runner
+#  ansible.builtin.shell:
+#    ./config.sh remove --url https://github.com/Devops-Stage-1/expense-backend --token {{secrets.GITHUB_RUNNER_TOKEN}} --unattended
+#  args:
+#    chdir: /home/ec2-user/github-runner
 
 - name: Create the Runner
   ansible.builtin.shell:
