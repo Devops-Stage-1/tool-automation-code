@@ -1,0 +1,22 @@
+- name: Set prompt
+  ansible.builtin.shell: set-prompt CI
+
+- name: Create runner directory
+  ansible.builtin.file:
+    path: /home/ec2-user/github-runner
+    state: directory
+    mode: '0755'
+  become_user: ec2-user
+
+- name: Download runner
+  ansible.builtin.unarchive:
+    src: https://github.com/actions/runner/releases/download/v2.321.0/actions-runner-linux-x64-2.321.0.tar.gz
+    dest: /home/ec2-user/github-runner
+    remote_src: yes
+  become_user: ec2-user
+
+#- name: Create the Runner
+#  ansible.builtin.shell:
+#    ./config.sh --url https://github.com/Devops-Stage-1/expense-backend --token {{secrets.GITHUB_RUNNER_TOKEN}}
+- name: testing
+  ansible.builtin.shell: echo ${vault_token}
