@@ -5,7 +5,6 @@
   ansible.builtin.file:
     path: /home/ec2-user/github-runner
     state: directory
-    mode: '0755'
   become_user: ec2-user
 
 - name: Download runner
@@ -15,6 +14,59 @@
     remote_src: yes
   become_user: ec2-user
 
+- name: Install dependencies
+  ansible.builtin.shell:
+    /home/ec2-user/github-runner/bin/installdependencies.sh
+
+- name: Clean any Runner
+  ansible.builtin.shell: ./svc.sh uninstall
+  args:
+    chdir: /home/ec2-user/github-runner
+
+- name: Clean any Runner
+  ansible.builtin.shell:
+    ./config.sh remove --url https://github.com/Devops-Stage-1/expense-backend --token {{secrets.GITHUB_RUNNER_TOKEN}} --unattended
+  args:
+    chdir: /home/ec2-user/github-runner
+
 - name: Create the Runner
   ansible.builtin.shell:
     ./config.sh --url https://github.com/Devops-Stage-1/expense-backend --token {{secrets.GITHUB_RUNNER_TOKEN}}
+  args:
+    chdir: /home/ec2-user/github-runner
+
+- name: Create the Runner
+  ansible.builtin.shell:
+    ./svc.sh install ; ./svc.sh start
+  args:
+    chdir: /home/ec2-user/github-runner
+
+- name: Disable default NodeJS Version Module
+  ansible.builtin.shell: dnf module disable nodejs -y
+
+- name: Enable NodeJS module for V20
+  ansible.builtin.shell: dnf module disable nodejs -y
+
+- name: Install NodeJS
+  ansible.builtin.dnf:
+    name: nodejs
+    state: installed
+
+- name: Install Java
+  ansible.builtin.dnf:
+    name: java-17-openjdk
+    state: installed
+
+- name: Create sonarscanner directory
+  ansible.builtin.file:
+    path: /opt/sonarscanner
+    state: directory
+    owner: sonar
+    group: sonar
+
+- name: Download and unarchive sonarscanner
+  ansible.builtin.unarchive:
+    src: https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-6.2.1.4610-linux-x64.zip
+    dest: /opt/sonarscanner
+    remote_src: yes
+  become_user: sonar
