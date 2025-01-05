@@ -3,7 +3,7 @@ Description = sonarqube Service
 
 [Service]
 User=sonar
-ExecStart=/opt/sonarqube/sonarqube-10.5.0.89998/bin/linux-x86-64/sonar.sh start
+ExecStart=/opt/sonarqube/sonarqube-24.12.0.100206/bin/linux-x86-64/sonar.sh start
 SyslogIdentifier=sonarqube
 Type=forking
 
