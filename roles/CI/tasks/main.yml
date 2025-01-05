@@ -18,7 +18,7 @@
 - name: Install hvac
   ansible.builtin.pip:
     name: hvac
-    state: installed
+    state: present
     executable: pip3.11
 
 #- name: Create the Runner
