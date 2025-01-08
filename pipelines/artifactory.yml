@@ -1,0 +1,34 @@
+format_version: 10
+pipelines:
+  artifactory:
+    group: Tools
+    display_order: -1
+    materials:
+      git-4210a58:
+        git: https://github.com/Devops-Stage-1/tool-automation-code.git
+        shallow_clone: false
+        auto_update: true
+        branch: main
+    secure_variables:
+      vault_token: AES:KjNW8iXptaW+i8jH2rZ6yg==:Tj+j15Thnd8aioQD6Ecu6trMWY8eGltB+o96M+tF7t8=
+    stages:
+      - ansible:
+          fetch_materials: true
+          approval:
+            type: manual
+          jobs:
+            ansible:
+              tasks:
+                - exec:
+                    arguments:
+                      - -i
+                      - artifactory-internal.dkdevops.online,
+                      - -e
+                      - ansible_user=ec2-user
+                      - -e
+                      - ansible_password=DevOps321
+                      - tools.yml
+                      - -e
+                      - role_name=artifactory
+                    command: ansible-playbook
+                    run_if: passed
