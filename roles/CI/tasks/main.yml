@@ -1,5 +1,5 @@
-- name: Set prompt
-  ansible.builtin.shell: set-prompt CI
+- name: Set Prompt
+  ansible.builtin.shell: set-prompt ci-server
 
 - name: Create runner directory
   ansible.builtin.file:
@@ -7,26 +7,29 @@
     state: directory
   become_user: ec2-user
 
-- name: Download runner
+- name: Download Runner
   ansible.builtin.unarchive:
     src: https://github.com/actions/runner/releases/download/v2.321.0/actions-runner-linux-x64-2.321.0.tar.gz
     dest: /home/ec2-user/github-runner
     remote_src: yes
   become_user: ec2-user
 
-- name: Install dependencies
-  ansible.builtin.shell:
-    /home/ec2-user/github-runner/bin/installdependencies.sh
+- name: Install Dependencies
+  ansible.builtin.shell: /home/ec2-user/github-runner/bin/installdependencies.sh
+
+- name: Start Runner
+  ansible.builtin.shell: ./svc.sh uninstall
+  args:
+    chdir: /home/ec2-user/github-runner
 
 - name: Install Runner
-  ansible.builtin.shell: ./config.sh --unattended --replace --url https://github.com/Devops-Stage-1 --token {{ secrets.GITHUB_RUNNER_TOKEN }}
+  ansible.builtin.shell: ./config.sh remove --token {{secrets.GITHUB_RUNNER_TOKEN}}; ./config.sh --unattended --replace --url https://github.com/Devops-Stage-1 --token {{secrets.GITHUB_RUNNER_TOKEN}}
   args:
     chdir: /home/ec2-user/github-runner
   become_user: ec2-user
 
-- name: Start the Runner
-  ansible.builtin.shell:
-    ./svc.sh install ; ./svc.sh start
+- name: Start Runner
+  ansible.builtin.shell: ./svc.sh install; ./svc.sh start
   args:
     chdir: /home/ec2-user/github-runner
 
