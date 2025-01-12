@@ -26,7 +26,7 @@
 
 - name: Extract Runner
   ansible.builtin.shell:
-    tar xzf /home/ec2-user/github-runner/actions-runner-linux-x64-2.321.0.tar.gz
+    tar xzf /home/ec2-user/github-runner/actions-runner-linux-x64-2.321.0.tar.gz -C /home/ec2-user/github-runner
 
 - name: Install dependencies
   ansible.builtin.shell:
