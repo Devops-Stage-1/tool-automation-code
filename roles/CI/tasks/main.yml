@@ -5,24 +5,37 @@
   ansible.builtin.file:
     path: /home/ec2-user/github-runner
     state: directory
-  become_user: ec2-user
+
+#- name: Download runner
+#  ansible.builtin.unarchive:
+#    src: https://github.com/actions/runner/releases/download/v2.321.0/actions-runner-linux-x64-2.321.0.tar.gz
+#    dest: /home/ec2-user/github-runner
+#    remote_src: yes
+#  become_user: ec2-user
 
 - name: Download runner
-  ansible.builtin.unarchive:
-    src: https://github.com/actions/runner/releases/download/v2.321.0/actions-runner-linux-x64-2.321.0.tar.gz
-    dest: /home/ec2-user/github-runner
-    remote_src: yes
-  become_user: ec2-user
+  ansible.builtin.shell:
+    curl -o /home/ec2-user/github-runner/actions-runner-linux-x64-2.321.0.tar.gz -L https://github.com/actions/runner/releases/download/v2.321.0/actions-runner-linux-x64-2.321.0.tar.gz
+
+#- name: Download runner
+#  ansible.builtin.unarchive:
+#    src: /opt/actions-runner-linux-x64-2.321.0.tar.gz
+#    dest: /home/ec2-user/github-runner
+#    owner: ec2-user
+#    group: ec2-user
+
+- name: Extract Runner
+  ansible.builtin.shell:
+    tar xzf /home/ec2-user/github-runner/actions-runner-linux-x64-2.321.0.tar.gz
 
 - name: Install dependencies
   ansible.builtin.shell:
     /home/ec2-user/github-runner/bin/installdependencies.sh
 
 - name: Install Runner
-  ansible.builtin.shell: ./config.sh --unattended --url https://github.com/Devops-Stage-1 --token {{ secrets.GITHUB_RUNNER_TOKEN }}
+  ansible.builtin.shell: ./config.sh --unattended --replace --url https://github.com/Devops-Stage-1 --token {{ secrets.GITHUB_RUNNER_TOKEN }}
   args:
     chdir: /home/ec2-user/github-runner
-  become_user: ec2-user
 
 - name: Create the Runner
   ansible.builtin.shell:
