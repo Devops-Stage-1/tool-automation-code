@@ -5,6 +5,7 @@
   ansible.builtin.file:
     path: /home/ec2-user/github-runner
     state: directory
+  become_user: ec2-user
 
 - name: Download runner
   ansible.builtin.unarchive:
