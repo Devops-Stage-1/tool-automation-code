@@ -8,11 +8,11 @@ module "tool-automation" {
   policy_resource_list = each.value["policy_resource_list"]
 }
 
-module "tool-automation-latest-ami" {
-  source = "./module/latest-ami"
-
-  tool_name = "artifactory"
-  instance_type = "t3.large"
-  zone_id = var.zone_id
-  policy_resource_list = []
-}
+# module "tool-automation-latest-ami" {
+#   source = "./module/latest-ami"
+#
+#   tool_name = "artifactory"
+#   instance_type = "t3.large"
+#   zone_id = var.zone_id
+#   policy_resource_list = []
+# }
