@@ -1,6 +1,6 @@
 resource "aws_instance" "instance" {
-  ami = data.aws_ami.ami.image_id
-  instance_type = var.instance_type
+  ami                  = data.aws_ami.ami.image_id
+  instance_type        = var.instance_type
   vpc_security_group_ids = [data.aws_security_group.selected.id]
   iam_instance_profile = aws_iam_instance_profile.instance_profile.name
 
@@ -8,12 +8,18 @@ resource "aws_instance" "instance" {
     market_type = "spot"
     spot_options {
       instance_interruption_behavior = "stop"
-      spot_instance_type = "persistent"
+      spot_instance_type             = "persistent"
     }
   }
 
   tags = {
     Name = var.tool_name
+  }
+
+  lifecycle {
+    ignore_changes = [
+      ami,
+    ]
   }
 }
 
