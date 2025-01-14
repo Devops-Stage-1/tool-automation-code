@@ -1,5 +1,4 @@
-- name: Set Prompt
-  ansible.builtin.shell: set-prompt ci-server
+
 
 - name: Create runner directory
   ansible.builtin.file:
