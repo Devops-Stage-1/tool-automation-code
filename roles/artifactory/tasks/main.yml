@@ -1,20 +1,30 @@
 - name: Set prompt
   ansible.builtin.shell: set-prompt artifactory
 
-- name: Download and extract Jfrog
-  ansible.builtin.unarchive:
-    src: https://releases.jfrog.io/artifactory/bintray-artifactory/org/artifactory/oss/jfrog-artifactory-oss/7.77.10/jfrog-artifactory-oss-7.77.10-linux.tar.gz
-    dest: /opt
-    remote_src: yes
+#- name: Download and extract Jfrog
+#  ansible.builtin.unarchive:
+#    src: https://releases.jfrog.io/artifactory/bintray-artifactory/org/artifactory/oss/jfrog-artifactory-oss/7.77.10/jfrog-artifactory-oss-7.77.10-linux.tar.gz
+#    dest: /opt
+#    remote_src: yes
+
+- name: Download jfrog
+  ansible.builtin.shell:
+    curl -L -o /opt/art.tar https://releases.jfrog.io/artifactory/bintray-artifactory/org/artifactory/oss/jfrog-artifactory-oss/7.77.10/jfrog-artifactory-oss-7.77.10-linux.tar.gz
+
+- name: Extract jfrog
+  ansible.builtin.shell:
+    tar -xzf art.tar
+  args:
+    chdir: /opt
 
 - name: copy repo template
   ansible.builtin.template:
     src: artifactory.service
     dest: /etc/systemd/system/artifactory.service
 
-- name: start the service
-  ansible.builtin.systemd_service:
-    name: artifactory
-    state: started
-    enabled: yes
-    daemon-reload: true
+#- name: start the service
+#  ansible.builtin.systemd_service:
+#    name: artifactory
+#    state: started
+#    enabled: yes
+#    daemon-reload: true
