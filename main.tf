@@ -7,3 +7,10 @@ module "tool-automation" {
   zone_id = var.zone_id
   policy_resource_list = each.value["policy_resource_list"]
 }
+
+module "tool-automation-latest-ami"{
+  source = "./module/latest-ami"
+  tool_name = CI
+  instance_type = "t3.small"
+  zone_id = var.zone_id
+}
