@@ -34,7 +34,7 @@
 
 - name: Import Grafana dashboard Node exporter
   community.grafana.grafana_dashboard:
-    url: http://localhost:3000
+    grafana_url: http://localhost:3000
     grafana_user: "admin"
     grafana_password: "admin123"
     state: present
