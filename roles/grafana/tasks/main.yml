@@ -11,6 +11,38 @@
     name: grafana
     state: installed
 
+- name: create prometheus datasource
+  community.grafana.grafana_datasource:
+    name: openshift_prometheus
+    ds_type: prometheus
+    ds_url: http://prometheus.dkdevops.online:9090/
+    access: proxy
+    tls_skip_verify: true
+
+- name: Copy dashboard
+  ansible.builtin.copy:
+    src: node-exporter.json
+    dest: /tmp/node-exporter.json
+
+- name: Create a folder
+  community.grafana.grafana_folder:
+    url: http://localhost:3000
+    grafana_user: "admin"
+    grafana_password: "admin123"
+    title: "project_dashboard"
+    state: present
+
+- name: Import Grafana dashboard foo
+  community.grafana.grafana_dashboard:
+    url: http://localhost:3000
+    grafana_user: "admin"
+    grafana_password: "admin123"
+    state: present
+    commit_message: Updated by ansible
+    overwrite: true
+    path: /tmp/node-exporter.json
+    folder: project_dashboard
+
 - name: Start Grafana
   ansible.builtin.systemd_service:
     name: grafana-server
