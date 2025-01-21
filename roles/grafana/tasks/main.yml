@@ -13,6 +13,9 @@
 
 - name: create prometheus datasource
   community.grafana.grafana_datasource:
+    grafana_url: http://localhost:3000
+    grafana_user: "admin"
+    grafana_password: "admin123"
     name: openshift_prometheus
     ds_type: prometheus
     ds_url: http://prometheus.dkdevops.online:9090/
@@ -26,7 +29,7 @@
 
 - name: Create a folder
   community.grafana.grafana_folder:
-    grafana_url : http://localhost:3000
+    url: http://localhost:3000
     grafana_user: "admin"
     grafana_password: "admin123"
     title: "project_dashboard"
